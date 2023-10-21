@@ -1,0 +1,8 @@
+*~
+*.swp
+*.swo
+30_Public Dataset_Public Sumission Template_v2
+30_Training Dataset_V2/external_data
+landmark.csv
+new_training.csv
+result.csv

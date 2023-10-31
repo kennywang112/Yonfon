@@ -84,10 +84,14 @@ train%>%ggplot()+geom_boxplot(aes(主要用途, 單價))# 離群值
 numeric_train <- train%>%select(-c("縣市","鄉鎮市區","路名","使用分區","主要用途","主要建材","建物型態","備註"))
 # 最近火車站 土地面積 總樓層數 國小(明星) 國中(下) 最近傳統市場 最近加油站 最近金融機構 最近娛樂設施
 model <- lm(formula = 單價 ~., data = numeric_train)
+full<-formula(model)
 summary(model)
 # 檢驗殘差常態性
 shapiro.test(model$residual[1:1000])
 
+model0<-lm(單價 ~ 1, data = numeric_train)
+#stepwise regression
+step(model0,direction = "both",scope = full)
 
 train%>%filter(土地面積 < 2.5)%>%ggplot()+geom_point(aes(土地面積, 單價,color = 縣市))
 train%>%filter(土地面積 < 2.5)%>%summarize(n())

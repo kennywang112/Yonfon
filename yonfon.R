@@ -4,13 +4,20 @@ library(mapproj)
 library(ggmap)
 library(fastDummies)
 
-train <- read_csv("C:/Users/USER/Yonfon/concat_data.csv")
-added <- read_csv("C:/Users/USER/Yonfon/training_quantity_distance.csv")
-origin <- read_csv("C:/Users/USER/Yonfon/30_Training Dataset_V2/training_data.csv")
+train <- read_csv("/Users/wangqiqian/Desktop/永豐/concat_data.csv")
+added <- read_csv("/Users/wangqiqian/Desktop/永豐/training_quantity_distance.csv")
+origin <- read_csv("/Users/wangqiqian/Desktop/永豐/30_Training Dataset_V2/training_data.csv")
 price <- origin%>%select(單價)
 train <- train[1:11751,]%>%cbind(price)%>%select(-"縱坐標", -"橫坐標", -"geometry")
 train$最近金融機構距離 <- added$最近金融機構距離
 train$最近廟宇距離 <- added$最近廟宇距離
+
+train$縣市%>%unique()
+taipei_data <- train%>%filter(縣市 == "台北市")
+gau_data <- train%>%filter(縣市 == "高雄市")
+new_taipei_data <- train%>%filter(縣市 == "新北市")
+tawyuan <- train%>%filter(縣市 == "桃園市")
+
 
 register_google('AIzaSyDkXQ0OwfJ9CXc4gUG7tb630puYEK0e0TM')
 tw.map <- get_map(location = 'Taiwan', zoom = 7)

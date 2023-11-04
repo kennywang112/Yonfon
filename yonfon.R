@@ -4,10 +4,13 @@ library(mapproj)
 library(ggmap)
 library(fastDummies)
 
-train <- read_csv("/Users/wangqiqian/Desktop/永豐/concat_data.csv")
-added <- read_csv("/Users/wangqiqian/Desktop/永豐/training_quantity_distance.csv")
-origin <- read_csv("/Users/wangqiqian/Desktop/永豐/30_Training Dataset_V2/training_data.csv")
+train <- read_csv("../Yonfon/concat_data.csv")
+added <- read_csv("../Yonfon/training_quantity_distance.csv")
+origin <- read_csv("../Yonfon/30_Training Dataset_V2/training_data.csv")
 price <- origin%>%select(單價)
+
+for_test <- train[11752:nrow(train), ]
+
 train <- train[1:11751,]%>%cbind(price)%>%select(-"縱坐標", -"橫坐標", -"geometry")
 train$最近金融機構距離 <- added$最近金融機構距離
 train$最近廟宇距離 <- added$最近廟宇距離

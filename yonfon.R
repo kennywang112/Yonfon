@@ -5,9 +5,18 @@ library(ggmap)
 library(fastDummies)
 
 train <- read_csv("../Yonfon/concat_data.csv")
+train <- read_csv("./desktop/永豐/concat_data.csv")
 added <- read_csv("../Yonfon/training_quantity_distance.csv")
 origin <- read_csv("../Yonfon/30_Training Dataset_V2/training_data.csv")
+origin <- read_csv("./desktop/永豐/30_Training Dataset_V2/training_data.csv")
 price <- origin%>%select(單價)
+
+mean(origin$土地面積)
+mean(origin$建物面積)
+mean(origin$車位面積)
+mean(origin$主建物面積)
+mean(origin$陽台面積)
+mean(origin$附屬建物面積)
 
 for_test <- train[11752:nrow(train), ]
 

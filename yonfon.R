@@ -6,6 +6,7 @@ library(fastDummies)
 
 train <- read_csv("../Yonfon/concat_data.csv")
 train <- read_csv("./desktop/永豐/concat_data.csv")
+added <- read_csv("./desktop/永豐/training_quantity_distance.csv")
 added <- read_csv("../Yonfon/training_quantity_distance.csv")
 origin <- read_csv("../Yonfon/30_Training Dataset_V2/training_data.csv")
 origin <- read_csv("./desktop/永豐/30_Training Dataset_V2/training_data.csv")
@@ -18,6 +19,7 @@ mean(origin$主建物面積)
 mean(origin$陽台面積)
 mean(origin$附屬建物面積)
 
+
 for_test <- train[11752:nrow(train), ]
 
 train <- train[1:11751,]%>%cbind(price)%>%select(-"縱坐標", -"橫坐標", -"geometry")
@@ -29,12 +31,6 @@ taipei_data <- train%>%filter(縣市 == "台北市")
 gau_data <- train%>%filter(縣市 == "高雄市")
 new_taipei_data <- train%>%filter(縣市 == "新北市")
 tawyuan <- train%>%filter(縣市 == "桃園市")
-
-
-register_google('AIzaSyDkXQ0OwfJ9CXc4gUG7tb630puYEK0e0TM')
-tw.map <- get_map(location = 'Taiwan', zoom = 7)
-ggmap(tw.map) +
-  geom_point(data = train, aes(x = lng, y = lat), color="purple")
 
 train$`國中(下)` <- as.character(train$`國中(下)`)
 train$`國中(中)` <- as.character(train$`國中(中)`)
@@ -130,6 +126,7 @@ train%>%group_by(移轉層次)%>%summarize(avg = sum(單價)/n())%>%
   ggplot()+geom_col(aes(移轉層次, avg))
 
 write.csv(train, "C:/Users/USER/Yonfon/new_concat_data.csv", row.names=FALSE)
+
 
 
 
